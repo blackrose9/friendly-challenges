@@ -1,16 +1,15 @@
-let scores = [2,3,6,6,5];
-scores.sort();
-let highscore = 0;
+let score = [2,3,6,6,5];
 
-checkScores = (score) => {
-   // find highest score
-   // arrange array in descending order
-   // search array from 0 if n is LESS than highscore then print n as runner up
+score.sort((a,b)=>b-a); // sort array in decending order
+let scorelength = score.length; // find size of the score array
 
-   if(score<highscore){
-      alert("Hey there runner up " + score)
-   }
-   else{
-      alert("how?")
-   }
+// search array from 1, if n is LESS than highscore then print n as runner up
+for(let n=1;n<scorelength;n++){
+  if(score[n]<score[0]){
+   // log the runner up that meets the condition and end the loop
+    console.log("Runner up is " + score[n]);
+    return;
+  }
+  else{
+  }
 }
