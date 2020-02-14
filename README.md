@@ -8,7 +8,7 @@ A compilation of my solutions to random toy problems we get.
 These solutions are written in JavaScript... for now... 
 
 ### CodeBeat Grade
--coming soon-
+[![codebeat badge](https://codebeat.co/badges/d4640f9c-5ed1-4ba3-8b89-c54b30b7189d)](https://codebeat.co/projects/github-com-blackrose9-friendly-challenges-master)
 
 ### Problems Incomplete / Unsolved
 * the findRepeatedNumbers solution is not implemented yet
