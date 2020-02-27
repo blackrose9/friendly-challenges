@@ -1,5 +1,5 @@
 firstFunction = (a,b,c) => {
-   let halfC = c*0.5;
+   let halfC = c/2;
    return (a*b*c)/halfC;
 }
 
@@ -8,5 +8,5 @@ secondFunction = (x,y) => {
    return firstFunction(modulusOfXY,x,y);
 }
 
-let result = secondFunction(8, 9)
+let result = secondFunction(8, 9);
 console.log(result);
