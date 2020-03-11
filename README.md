@@ -5,7 +5,7 @@
 A compilation of my solutions to random toy problems we get.
 
 ## Languages
-These solutions are written in JavaScript... for now... 
+These solutions are written in JavaScript and some solutions have Java translations.
 
 ### CodeBeat Grade
 [![codebeat badge](https://codebeat.co/badges/d4640f9c-5ed1-4ba3-8b89-c54b30b7189d)](https://codebeat.co/projects/github-com-blackrose9-friendly-challenges-master)
