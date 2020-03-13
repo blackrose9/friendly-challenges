@@ -15,3 +15,6 @@ These solutions are written in JavaScript and some solutions have Java translati
 * the uberFIndNearestDriver solution is not complete.
 * the findVowelsInWords problem only solved in pseudocode.
 * the findConsonantsInWord problem is solved using refactored code, but unsolved when attempting to use 2 for loops #challenge
+
+### Future Works
+* make binary calculator a full featured calculator.
