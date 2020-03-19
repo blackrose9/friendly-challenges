@@ -1,5 +1,6 @@
 # Fun Challenges
 #### By blackrose9
+![codewars badge](https://www.codewars.com/users/blackrose9/badges/micro)
 
 ### Description
 A compilation of my solutions to random toy problems we get.
@@ -18,6 +19,3 @@ These solutions are written in JavaScript and some solutions have Java translati
 
 ### Future Works
 * make binary calculator a full featured calculator.
-
-### CodeWars Badge
-![codewars badge](https://www.codewars.com/users/blackrose9/badges/micro)
