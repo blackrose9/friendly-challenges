@@ -18,3 +18,6 @@ These solutions are written in JavaScript and some solutions have Java translati
 
 ### Future Works
 * make binary calculator a full featured calculator.
+
+### CodeWars Badge
+[!https://www.codewars.com/users/blackrose9/badges/micro]
