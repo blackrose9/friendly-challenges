@@ -1,6 +1,5 @@
 # Fun Challenges
 #### By blackrose9
-![codewars badge](https://www.codewars.com/users/blackrose9/badges/micro)
 
 ### Description
 A compilation of my solutions to random toy problems we get.
@@ -10,6 +9,9 @@ These solutions are written in JavaScript and some solutions have Java translati
 
 ### CodeBeat Grade
 [![codebeat badge](https://codebeat.co/badges/d4640f9c-5ed1-4ba3-8b89-c54b30b7189d)](https://codebeat.co/projects/github-com-blackrose9-friendly-challenges-master)
+
+### CodeWars Badge
+![codewars badge](https://www.codewars.com/users/blackrose9/badges/micro)
 
 ### Problems Incomplete / Unsolved
 * the findRepeatedNumbers solution is not implemented yet
