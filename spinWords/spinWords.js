@@ -1,17 +1,17 @@
-spinWords = (sentence) => {
+function spinWords(sentence){
    let splitSentence = [];
-   splitSentence = sentence.split(" ");
-   let spanSentence = [];
-   spanSentence.push(splitSentence[0]);
-   console.log(splitSentence);
-
-   for(let i=1; i<splitSentence.length; i++){
-      let reversedWord = splitSentence.splice(i,1);
-      console.log(reversedWord);
-      spanSentence.push(reversedWord.reverse());
-      console.log(spanSentence);
-   }
-   return sentence;
-}
-
-console.log(spinWords("Stop Spinning My Words"));
+    splitSentence = sentence.split(" ");
+    let spanSentence = [];
+    let sentenceLength = splitSentence.length
+ 
+    for(let i=0; i<sentenceLength; i++){
+       let word = splitSentence[i]
+       if(word.length>=5){
+          spanSentence.push(word.split("").reverse().join(""));
+       }
+       else{
+          spanSentence.push(word)
+       }
+    }
+    return spanSentence.join(" ");
+ }
