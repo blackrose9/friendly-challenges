@@ -6,10 +6,17 @@
    "configurations": [
       {
          "type": "java",
-         "name": "CodeLens (Launch) - areYouSquare",
+         "name": "CodeLens (Launch) - anagram",
          "request": "launch",
-         "mainClass": "areYouSquare.areYouSquare",
-         "projectName": "friendly-challenges_1f1dc89a"
+         "mainClass": "anagram.anagram",
+         "projectName": "challenges_b15cb298"
+      },
+      {
+         "type": "java",
+         "name": "CodeLens (Launch) - pangram",
+         "request": "launch",
+         "mainClass": "pangram.pangram",
+         "projectName": "challenges_b15cb298"
       },
       {
          "type": "node",
