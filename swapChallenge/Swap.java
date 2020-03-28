@@ -1,14 +1,33 @@
 package swapChallenge;
 
-import java.lang.reflect.Array;
+import java.util.Arrays;
+import org.apache.commons.lang3.ArrayUtils;
 
 class Swap {
    public static void main(String[] args) {
-      
+         int [] arr = {7, 1, 3, 2, 4, 5, 6};
+      System.out.println(needSwap(arr));
    }
-   public static Array needSwap(Array array){
-         
-         return array;
+   public static int needSwap(int[] ogArray) {
+         int[] sortedArray = ogArray.clone();
+         Arrays.sort(sortedArray);
+         System.out.println(Arrays.toString(sortedArray));
+         System.out.println(Arrays.toString(ogArray));
+         int numberOfSwaps = 0;
+         for(int i=0; i<ogArray.length;i++){
+               if(!(ogArray[i]==sortedArray[i])){
+                     // find out if the numbers at the [i]index are the same.
+                     // find the index of the sorted number in the ogArray
+                     // swap it, put it where it's supposed to be.
+                  int j = ArrayUtils.indexOf(ogArray, sortedArray[i]);
+                  int temp = ogArray[i];
+                  ogArray[i]=ogArray[j];
+                  ogArray[j]=temp;
+                  //count number of swaps
+                  numberOfSwaps++;
+               }
+         }
+         return numberOfSwaps;
    }
 }
 

@@ -6,6 +6,13 @@
    "configurations": [
       {
          "type": "java",
+         "name": "CodeLens (Launch) - Swap",
+         "request": "launch",
+         "mainClass": "swapChallenge.Swap",
+         "projectName": "friendly-challenges_1f1dc89a"
+      },
+      {
+         "type": "java",
          "name": "CodeLens (Launch) - anagram",
          "request": "launch",
          "mainClass": "anagram.anagram",
