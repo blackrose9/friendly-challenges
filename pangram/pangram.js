@@ -1,24 +1,15 @@
 let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+let alphabet1 = "abcdefghijklmnopqrstuvwxyz"
 PangramChecker = (sentence) => {
-   sentence = sentence.split(" ").join("").toLowerCase().split("");
-   let checkedAlphabet = []
-   let sentenceLength = sentence.length;
-   for (let i = 0; i<sentenceLength; i++){
-      let letter = (sentence[i]);
-      console.log(letter)
-      if(alphabet.includes(letter)){
-         let a = alphabet.indexOf(letter)
-         checkedAlphabet = alphabet.splice(a,1)
+   debugger;
+   sentence = sentence.toLowerCase();
+   alphabet.forEach(letter => {
+      debugger;
+      console.log(letter);
+      if(!(sentence.includes(letter))){
+         return false;
       }
-      else{
-         return "not pangram"
-      }
-   }
+   });
+   return true;
 }
-// isPangram = (sentence) => {
-//    let alphabetLength = alphabet.length;
-//    for (let i = 0; i<alphabetLength; i++){}
-// }
 console.log(PangramChecker("The quick brown fox jumps over the lazy dog"))
-// programmatic
-// xml
