@@ -9,6 +9,13 @@
          "name": "CodeLens (Launch) - Swap",
          "request": "launch",
          "mainClass": "swapChallenge.Swap",
+         "projectName": "challenges_b15cb298"
+      },
+      {
+         "type": "java",
+         "name": "CodeLens (Launch) - Swap",
+         "request": "launch",
+         "mainClass": "swapChallenge.Swap",
          "projectName": "friendly-challenges_1f1dc89a"
       },
       {
