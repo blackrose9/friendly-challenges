@@ -17,3 +17,5 @@ function featuredProduct(products) {
    })
 }
     featuredProduct("yellowShirt","redHat","blackShirt","bluePants","redHat","pinkHat","blackShirt","yellowShirt","greenPants","greenPants","greenPants")
+
+    //hashmaps

@@ -1,4 +1,4 @@
-package RandomToyChallenges;
+package eStore;
 
 import java.util.List;
 
@@ -15,3 +15,4 @@ class eStore {
       }
 }
 
+//hashmaps to keep key:value pairs
