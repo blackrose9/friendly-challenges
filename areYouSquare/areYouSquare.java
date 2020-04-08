@@ -1,5 +1,3 @@
-package areYouSquare;
-
 public class areYouSquare {
    public static void main(String[] args) {
       System.out.println(isSquare(-1));

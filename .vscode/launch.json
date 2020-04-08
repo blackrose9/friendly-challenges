@@ -6,6 +6,13 @@
    "configurations": [
       {
          "type": "java",
+         "name": "CodeLens (Launch) - Swap",
+         "request": "launch",
+         "mainClass": "Swap",
+         "projectName": "challenges_b15cb298"
+      },
+      {
+         "type": "java",
          "name": "CodeLens (Launch) - areYouSquare",
          "request": "launch",
          "mainClass": "areYouSquare.areYouSquare",

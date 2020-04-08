@@ -22,5 +22,6 @@ public class narcissistic {
       double totalPowers = powerArr.stream().mapToDouble(Double::doubleValue).sum();
 
       return (totalPowers == num) ? true : false;
+      // return totalPowers == num;
    }
 }
