@@ -1,0 +1,26 @@
+//monitor milk production
+//monitor sales
+//give yearly report
+
+/*
+production per day
+------------------
+displays the milk produced per shed per day:
+
+**farmers input production in each shed everyday (object with shedLetter as key and litres as value)
+**for each shed log production per day
+** and then the total of all the litres produced per day add all values
+e.g.
+Your production in Shed D 572 litres per day
+The total production is 1876 litres per day
+
+sales per week/year
+-------------------
+take in Brookside's buying rate and amount of time as argument (45/- 7days)
+**separate calculate function
+income = totalProduction * time * buyingRate
+
+yearly sales report
+-------------------
+
+*/
