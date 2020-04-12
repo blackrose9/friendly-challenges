@@ -24,11 +24,11 @@ findSequence = (num) => {
       let powr = findPower(x); //81
       //      0+81         <=   100
       if(squaredSum+powr <= numPowr){
-         while(powr){
-
-         } do {
+         do{
             
-         }
+         } while(powr){
+
+         } 
          //continue the sequence see where it ends with this power, and if it doesn't give us the correct output then we jump this power.
          // sequence.push(Math.sqrt(powr));
          // squaredSum+=powr; =81
