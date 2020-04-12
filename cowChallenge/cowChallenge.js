@@ -36,4 +36,6 @@ incomeOverTime(45, 7);
 console.log("\n")
 incomeOverTime(45, 14);
 console.log("\n")
-incomeOverTime(45, 365);
+incomeOverTime(45, 29);
+console.log("\n")
+incomeOverTime(45, 366);
