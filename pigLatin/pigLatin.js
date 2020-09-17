@@ -1,8 +1,8 @@
 pigIt = (string) => {
-   string = string.split(" ");
-   let words = [];
+   // string = [...string];
+   const words = [];
 
-   string.forEach(word => {
+   string.split(" ").forEach(word => {
       let splitWord = word.split("");
 
       //if you want to process that is connected to a symbol.

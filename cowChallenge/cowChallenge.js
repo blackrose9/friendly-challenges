@@ -1,17 +1,16 @@
 productionPerDay = cowProduce = () => {
-   const litresPerShed = {A: 510, B: 308, C: 486, D: 572};
+   const litresProduced = {A: 510, B: 308, C: 486, D: 572};
    let totalProduction=0;
-   for (const shed in litresPerShed) {
-       console.log(`Your production in Shed ${shed} ${litresPerShed[shed]} litres per day`);
-       totalProduction+=litresPerShed[shed];
+   for (let shed in litresProduced) {
+       console.log(`Your production in Shed ${shed} ${litresProduced[shed]} litres per day`);
+       totalProduction+=litresProduced[shed];
    }
    console.log(`The total production is ${totalProduction} litres per day`);
    return totalProduction;
 }
 
 calculate = calc = (sellingPrice, time, totalProduction) => {
-   let income;
-   income = totalProduction * time * sellingPrice;
+   const income = totalProduction * time * sellingPrice;
    return income;
 }
 

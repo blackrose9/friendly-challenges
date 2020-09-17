@@ -1,12 +1,9 @@
-let switchToBinary = toBinaryFunc = (number) => {
-   return (number >>> 0).toString(2);
-}
-let switchToNumber = toNumberFunc = (binaryNum) => {
-   return parseInt(binaryNum, 2);
-}
-let add = addDigits = (num1,num2) => {
-   return num1 + num2;
-}
+const switchToBinary = toBinaryFunc = (number) => (number >>> 0).toString(2);
+
+const switchToNumber = toNumberFunc = (binaryNum) => parseInt(binaryNum, 2);
+
+const add = addDigits = (num1,num2) => num1+num2;
+
 let input1 = switchToNumber(prompt("Write your first binary number"));
 let input2 = switchToNumber(prompt("Write your second binary number"));
 
