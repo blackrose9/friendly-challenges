@@ -6,6 +6,27 @@
    "configurations": [
       {
          "type": "java",
+         "name": "CodeLens (Launch) - pangram",
+         "request": "launch",
+         "mainClass": "pangram",
+         "projectName": "challenges_b15cb298"
+      },
+      {
+         "type": "java",
+         "name": "CodeLens (Launch) - anagram",
+         "request": "launch",
+         "mainClass": "anagram",
+         "projectName": "challenges_b15cb298"
+      },
+      {
+         "type": "java",
+         "name": "CodeLens (Launch) - areYouSquare",
+         "request": "launch",
+         "mainClass": "areYouSquare",
+         "projectName": "challenges_b15cb298"
+      },
+      {
+         "type": "java",
          "name": "CodeLens (Launch) - Swap",
          "request": "launch",
          "mainClass": "Swap",
