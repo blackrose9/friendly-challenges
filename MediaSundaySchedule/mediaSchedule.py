@@ -1,39 +1,81 @@
-import random
+from datetime import datetime, timedelta
+from constraint import Problem, AllDifferentConstraint, InSetConstraint
 
-# Define the list of people with their talents
-people = [
-    {'name': 'Lombe', 'talents': ['video', 'photography']},
-    {'name': 'Eneya', 'talents': ['video', 'livestream', 'visionmixing']},
-    {'name': 'Bright', 'talents': ['video','photography', 'livestream', 'visionmixing']},
-    {'name': 'Niza', 'talents': ['video','photography', 'livestream', 'visionmixing']},
-    {'name': 'Sarah', 'talents': ['video','photography', 'livestream', 'visionmixing']},
-    {'name': 'Jerome', 'talents': ['video','photography']},
-    {'name': 'Chanda', 'talents': ['photography']},
-    {'name': 'Yombo', 'talents': ['photography', 'video']},
-    {'name': 'Chudu', 'talents': ['photography']},
-    {'name': 'Charity', 'talents': ['photography']},
-    {'name': 'Chomba', 'talents': ['photography']},
-    {'name': 'Yande', 'talents': ['photography']}
-]
+def generate_schedule(team_data, start_date, end_date):
+    # Create a list of dates from start_date to end_date
+    dates = [start_date + timedelta(7 * i) for i in range((end_date - start_date).days // 7 + 1)]
 
-# Create a list to store the schedule
-schedule = []
+    talents_needed = {
+        "photography": 4,
+        "video": 2,
+        "visionmixing": 1,
+        "livestream": 1
+    }
 
-# Define the number of people needed for each task
-video_count = 2
-photography_count = 2
-livestream_count = 1
-visionmixing_count = 1
+    talents_combinations = [["photography", "video", "visionmixing", "livestream"]] * len(dates)
 
-# Randomly select people for each task, ensuring that each person is scheduled only once
-for task, count in [('video', video_count), ('photography', photography_count), ('livestream', livestream_count), ('visionmixing', visionmixing_count)]:
-    available_people = [person for person in people if task in person['talents']]
-    random.shuffle(available_people)
-    for i in range(count):
-        person = available_people[i]
-        schedule.append({'person': person['name'], 'task': task})
-        people.remove(person)
+    # Create a problem instance
+    problem = Problem()
 
-# Print the schedule
-for item in schedule:
-    print(f"{item['person']} will do {item['task']}")
+    # Add variables for each date with the possible talents combinations
+    for i, date in enumerate(dates):
+        problem.addVariable(f"date_{i}", talents_combinations[i])
+
+    # Add constraint: each date's talents must be unique
+    problem.addConstraint(AllDifferentConstraint(), [f"date_{i}" for i in range(len(dates))])
+
+    # Add constraint: the count of each talent must be as required
+    for talent, required_count in talents_needed.items():
+        problem.addConstraint(lambda *args: sum(1 for arg in args if arg == talent) == required_count, [f"date_{i}" for i in range(len(dates))])
+
+    # Add constraint: members cannot be scheduled for two talents on the same date
+    for member in team_data.keys():
+        talents_available = team_data[member]["talents"]
+        for i in range(len(dates)):
+            problem.addConstraint(InSetConstraint([talents_available]), [f"date_{i}"])
+
+    # Add constraint: members cannot be scheduled for consecutive Sundays
+    for member in team_data.keys():
+        for i in range(len(dates) - 1):
+            problem.addConstraint(lambda d1, d2, member=member: abs((d2 - d1).days) != 7 or d2 == None, (f"date_{i}", f"date_{i+1}", member))
+
+    # Solve the problem and get the solution
+    solution = problem.getSolution()
+
+    if solution is None:
+        print("No valid schedule found.")
+        return None
+
+    # Convert solution keys to datetime objects
+    schedule = {datetime.strptime(key.split('_')[1], "%Y-%m-%d"): value for key, value in solution.items()}
+
+    return schedule
+
+# Sample team data (you can replace this with the actual data)
+team_data = {
+    "Member 1": {"talents": ["visionmixing", "video"], "preferences": ["1st", "2nd"]},
+    "Member 2": {"talents": ["photography", "livestream"], "preferences": ["1st"]},
+    "Member 3": {"talents": ["video"], "preferences": ["2nd"]},
+    # Add more team members here
+}
+
+start_date = datetime(2023, 8, 6)  # Start date for August 2023 (1st Sunday)
+end_date = datetime(2023, 8, 27)  # End date for August 2023 (4th Sunday)
+
+schedule = generate_schedule(team_data, start_date, end_date)
+print(schedule)
+
+
+
+# # Sample team data (you can replace this with the actual data)
+# team_data = {
+#     "Member 1": {"talents": ["visionmixing", "video"], "preferences": ["1st", "2nd"]},
+#     "Member 2": {"talents": ["photography", "livestream"], "preferences": ["1st"]},
+#     "Member 3": {"talents": ["video"], "preferences": ["2nd"]},
+#     "Member 4": {"talents": ["visionmixing", "video"], "preferences": ["1st", "2nd"]},
+#     "Member 5": {"talents": ["photography", "livestream"], "preferences": ["2nd"]},
+#     "Member 6": {"talents": ["visionmixing", "photography"], "preferences": ["1st", "2nd"]},
+#     "Member 7": {"talents": ["photography"], "preferences": ["1st", "2nd"]},
+#     "Member 8": {"talents": ["visionmixing", "livestream"], "preferences": ["1st", "2nd"]},
+#     # Add more team members here
+# }

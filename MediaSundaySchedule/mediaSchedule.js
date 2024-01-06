@@ -103,42 +103,42 @@ function getServiceForDate(date) {
   const teamData = {
     'Jose': { talents: ['visionmixing', 'photography'], preferences: ['1st', '2nd'] },
     'Chudu': { talents: ['photography'], preferences: ['1st'] },
-    'Charity': { talents: ['visionmixing', 'photography'], preferences: ['1st', '2nd'] },
+    'Charity': { talents: ['photography'], preferences: ['1st', '2nd'] },
     'Nkama': { talents: ['photography', 'video'], preferences: ['1st'] },
-    'Kusibili': { talents: ['photography', 'video'], preferences: ['1st'] },
     'Felix': { talents: ['photography','video'], preferences: ['1st'] },
     'Chomba': { talents: ['photography'], preferences: ['2nd'] },
     'Nobu': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
     'Thokozile': { talents: ['photography', 'video'], preferences: ['2nd'] },
     'Prudence': { talents: ['photography'], preferences: ['1st'] },
     'Clement': { talents: ['visionmixing', 'video'], preferences: ['1st', '2nd'] },
-    'Ossie': { talents: ['video', 'livestream'], preferences: ['1st'] },
-    'Mara': { talents: ['photography', 'video'], preferences: ['2nd'] },
+    // 'Ossie': { talents: ['video', 'livestream'], preferences: ['1st'] }, //is travelling
+    'Mara': { talents: ['photography'], preferences: ['2nd'] },
     'Eneya': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
     'Yande': { talents: ['photography', 'visionmixing'], preferences: ['2nd'] },
     'Chanda': { talents: ['photography'], preferences: ['2nd'] },
     'Lombe': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
-    'Emmanuel Luks': { talents: ['photography', 'visionmixing'], preferences: ['1st', '2nd'] },
-    'Yombo': { talents: ['photography'], preferences: ['1st', '2nd'] },
+    'Emmanuel Luks': { talents: ['visionmixing'], preferences: ['1st', '2nd'] },
+    // 'Yombo': { talents: ['photography'], preferences: ['1st', '2nd'] },
     'Medelina': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] },
     'Sarah': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
     'Barnabas': { talents: ['video'], preferences: ['2nd'] },
     'Lukundo': { talents: ['photography'], preferences: ['2nd'] },
     'Bright': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
-    'Tabo': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
+    'Tabo': { talents: ['photography'], preferences: ['1st'] },
     'Niza': { talents: ['video', 'livestream'], preferences: ['1st', '2nd'] },
     'Mukutwa': { talents: ['photography'], preferences: ['2nd'] },
     'Mike': { talents: ['photography'], preferences: ['2nd'] },
+    'Emmanuel Perri': { talents: ['photography'], preferences: ['2nd'] },
     'David Michael': { talents: ['video', 'photography'], preferences: ['1st', '2nd'] },
     'Jerome': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] },
+    // 'Kusibili': { talents: ['photography', 'video'], preferences: ['1st'] }, //still in school
+    'Chibwe': { talents: ['photography'], preferences: ['1st'] },
+    // 'Jemimah': { talents: ['photography', 'visionmixing'], preferences: ['1st'] }, //is on maternity leave
     // Add more team members here
   };
   
-  const startDate = new Date('2023-08-06'); // Start date for August 2023 (1st Sunday)
-  const endDate = new Date('2023-08-27'); // End date for August 2023 (4th Sunday)
+  const startDate = new Date('2023-11-05'); // Start date for August 2023 (1st Sunday)
+  const endDate = new Date('2023-11-26'); // End date for August 2023 (4th Sunday)
   
   const schedule = generateRandomSchedule(teamData, startDate, endDate);
   console.log(schedule);
-  
-  
-  
