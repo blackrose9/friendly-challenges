@@ -103,8 +103,9 @@ function getServiceForDate(date) {
   const teamData = {
     'Jose': { talents: ['visionmixing', 'photography'], preferences: ['1st', '2nd'] },
     'Chudu': { talents: ['photography'], preferences: ['1st'] },
+    'Chisha': { talents: ['photography'], preferences: ['1st'] },
     'Charity': { talents: ['photography'], preferences: ['1st', '2nd'] },
-    'Nkama': { talents: ['photography', 'video'], preferences: ['1st'] },
+    // 'Nkama': { talents: ['photography', 'video'], preferences: ['1st'] }, //working sundays, schedule february
     'Felix': { talents: ['photography','video'], preferences: ['1st'] },
     'Chomba': { talents: ['photography'], preferences: ['2nd'] },
     'Nobu': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
@@ -112,7 +113,7 @@ function getServiceForDate(date) {
     'Prudence': { talents: ['photography'], preferences: ['1st'] },
     'Clement': { talents: ['visionmixing', 'video'], preferences: ['1st', '2nd'] },
     // 'Ossie': { talents: ['video', 'livestream'], preferences: ['1st'] }, //is travelling
-    'Mara': { talents: ['photography'], preferences: ['2nd'] },
+    'Mara': { talents: ['photography'], preferences: ['2nd'] }, // pregnant - only sitting jobs
     'Eneya': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
     'Yande': { talents: ['photography', 'visionmixing'], preferences: ['2nd'] },
     'Chanda': { talents: ['photography'], preferences: ['2nd'] },
@@ -122,15 +123,15 @@ function getServiceForDate(date) {
     'Medelina': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] },
     'Sarah': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
     'Barnabas': { talents: ['video'], preferences: ['2nd'] },
-    'Lukundo': { talents: ['photography'], preferences: ['2nd'] },
+    'Lukundo': { talents: ['photography'], preferences: ['2nd'] }, // schedule with Chudu
     'Bright': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
     'Tabo': { talents: ['photography'], preferences: ['1st'] },
     'Niza': { talents: ['video', 'livestream'], preferences: ['1st', '2nd'] },
     'Mukutwa': { talents: ['photography'], preferences: ['2nd'] },
     'Mike': { talents: ['photography'], preferences: ['2nd'] },
-    'Emmanuel Perri': { talents: ['photography'], preferences: ['2nd'] },
+    // 'Emmanuel Perri': { talents: ['photography'], preferences: ['2nd'] }, //do not schedule until further notice
     'David Michael': { talents: ['video', 'photography'], preferences: ['1st', '2nd'] },
-    'Jerome': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] },
+    // 'Jerome': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] }, //left the country
     // 'Kusibili': { talents: ['photography', 'video'], preferences: ['1st'] }, //still in school
     'Chibwe': { talents: ['photography'], preferences: ['1st'] },
     // 'Jemimah': { talents: ['photography', 'visionmixing'], preferences: ['1st'] }, //is on maternity leave
