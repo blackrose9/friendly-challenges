@@ -1,145 +1,109 @@
-function addDays(date, days) {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
+function createSchedule(teamData, startDate, endDate) {
+  // Define the required roles for each service
+  const serviceRequirements = {
+    '1st': { photography: 2, video: 2, livestream: 1, visionmixing: 1 },
+    '2nd': { photography: 2, video: 2 }
+  };
 
-function isServedOnPreviousSunday(member, date, schedule) {
-  const previousSunday = new Date(date);
-  previousSunday.setDate(previousSunday.getDate() - 7);
-
-  if (schedule[previousSunday]) {
-    return schedule[previousSunday].some(entry => entry.name === member);
-  }
-
-  return false;
-}
-
-function generateRandomSchedule(teamData, startDate, endDate) {
-  const dates = [];
   let currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    dates.push(new Date(currentDate));
-    currentDate = addDays(currentDate, 7);
+  let schedule = {};
+  
+  // Function to add days to a date
+  function addDays(date, days) {
+    let result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
   }
 
-  const talentsNeeded = {
-    photography: 4,
-    video: 2,
-    visionmixing: 1,
-    livestream: 1,
-  };
+  // Track the last time a member was scheduled to ensure rest
+  let lastScheduled = {};
 
-  const talentsLabels = {
-    photography: 'Photography',
-    video: 'Video',
-    visionmixing: 'Vision Mixing',
-    livestream: 'Livestream',
-  };
+  while (currentDate <= endDate) {
+    let dateKey = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+    schedule[dateKey] = { '1st': [], '2nd': [] };
 
-  const shuffledTeamMembers = Object.keys(teamData).sort(() => 0.5 - Math.random());
-  const schedule = {};
+    Object.entries(serviceRequirements).forEach(([service, roles]) => {
+      Object.entries(roles).forEach(([role, numNeeded]) => {
+        let assigned = 0;
 
-  for (const date of dates) {
-    const selectedMembers = [];
-    const talentCounts = { ...talentsNeeded }; // Make a copy of talentsNeeded
-    const talentsAssigned = {}; // Keep track of talents already assigned to each member on the current date
+        // Sort team members by the last scheduled date to prioritize those who rested more
+        let candidates = teamData.sort((a, b) => {
+          let lastA = lastScheduled[a.name] || new Date(startDate);
+          let lastB = lastScheduled[b.name] || new Date(startDate);
+          return lastA - lastB;
+        });
 
-    for (const talent of Object.keys(talentsNeeded)) {
-      const talentMembers = shuffledTeamMembers.filter(
-        member => teamData[member].talents.includes(talent) && teamData[member].preferences.includes(getServiceForDate(date))
-      );
+        for (let member of candidates) {
+          if (assigned < numNeeded) {
+            // Check if member can serve in this role and service, considering consecutive scheduling
+            let canServe = (!lastScheduled[member.name] || addDays(lastScheduled[member.name], 7) <= currentDate || 
+                            (Object.keys(lastScheduled).length / teamData.length) >= 2) && // Allow for consecutive scheduling if necessary
+                            (member.talents.includes(role) && member.preferences.includes(service));
 
-      if (talentMembers.length < talentsNeeded[talent]) {
-        console.log('No valid schedule found.');
-        return null;
-      }
+            if (canServe) {
+              schedule[dateKey][service].push({ name: member.name, talent: role });
+              lastScheduled[member.name] = currentDate; // Update last scheduled
+              assigned++;
+            }
+          } else {
+            break; // Break early if all needed roles are filled
+          }
+        }
+      });
+    });
 
-      talentCounts[talent] = talentsNeeded[talent];
-      talentsAssigned[talent] = new Set(); // Initialize the set for each talent
-    }
-
-    const servedLastSunday = new Set();
-
-    while (Object.values(talentCounts).some(count => count > 0)) {
-      const talent = Object.keys(talentsNeeded).find(talent => talentCounts[talent] > 0);
-      const talentMembers = shuffledTeamMembers.filter(
-        member =>
-          teamData[member].talents.includes(talent) &&
-          teamData[member].preferences.includes(getServiceForDate(date)) &&
-          !selectedMembers.some(selected => selected.name === member && selected.talent === talentsLabels[talent]) &&
-          (!talentsAssigned[talent] || !talentsAssigned[talent].has(member)) && // Check if the member is already assigned to another talent on this date
-          !servedLastSunday.has(member) // Check if the member served on the previous Sunday
-      );
-
-      if (talentMembers.length === 0) {
-        console.log('No valid schedule found.');
-        return null;
-      }
-
-      const randomIndex = Math.floor(Math.random() * talentMembers.length);
-      const selectedMember = talentMembers[randomIndex];
-      selectedMembers.push({ name: selectedMember, talent: talentsLabels[talent] });
-      talentCounts[talent]--;
-      talentsAssigned[talent] = talentsAssigned[talent] || new Set();
-      talentsAssigned[talent].add(selectedMember); // Mark the member as assigned to the talent on this date
-
-      servedLastSunday.add(selectedMember); // Mark the member as served on the current Sunday
-    }
-
-    schedule[date] = selectedMembers;
+    currentDate = addDays(currentDate, 7); // Move to the next Sunday
   }
 
   return schedule;
 }
 
-function getServiceForDate(date) {
-  // Replace this logic with your actual method for determining 1st or 2nd service for a given date
-  // For this example, we will alternate between 1st and 2nd services based on even/odd weeks
-  return date.getDate() % 2 === 0 ? '1st' : '2nd';
-}
 
-  // Sample team data (you can replace this with the actual data)
-  const teamData = {
-    'Jose': { talents: ['visionmixing', 'photography'], preferences: ['1st', '2nd'] },
-    'Chudu': { talents: ['photography'], preferences: ['1st'] },
-    'Chisha': { talents: ['photography'], preferences: ['1st'] },
-    'Charity': { talents: ['photography'], preferences: ['1st', '2nd'] },
-    // 'Nkama': { talents: ['photography', 'video'], preferences: ['1st'] }, //working sundays, schedule february
-    'Felix': { talents: ['photography','video'], preferences: ['1st'] },
-    'Chomba': { talents: ['photography'], preferences: ['2nd'] },
-    'Nobu': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
-    'Thokozile': { talents: ['photography', 'video'], preferences: ['2nd'] },
-    'Prudence': { talents: ['photography'], preferences: ['1st'] },
-    'Clement': { talents: ['visionmixing', 'video'], preferences: ['1st', '2nd'] },
-    // 'Ossie': { talents: ['video', 'livestream'], preferences: ['1st'] }, //is travelling
-    'Mara': { talents: ['photography'], preferences: ['2nd'] }, // pregnant - only sitting jobs
-    'Eneya': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
-    'Yande': { talents: ['photography', 'visionmixing'], preferences: ['2nd'] },
-    'Chanda': { talents: ['photography'], preferences: ['2nd'] },
-    'Lombe': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
-    'Emmanuel Luks': { talents: ['visionmixing'], preferences: ['1st', '2nd'] },
-    // 'Yombo': { talents: ['photography'], preferences: ['1st', '2nd'] },
-    'Medelina': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] },
-    'Sarah': { talents: ['visionmixing', 'video'], preferences: ['1st'] },
-    'Barnabas': { talents: ['video'], preferences: ['2nd'] },
-    'Lukundo': { talents: ['photography'], preferences: ['2nd'] }, // schedule with Chudu
-    'Bright': { talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
-    'Tabo': { talents: ['photography'], preferences: ['1st'] },
-    'Niza': { talents: ['video', 'livestream'], preferences: ['1st', '2nd'] },
-    'Mukutwa': { talents: ['photography'], preferences: ['2nd'] },
-    'Mike': { talents: ['photography'], preferences: ['2nd'] },
-    // 'Emmanuel Perri': { talents: ['photography'], preferences: ['2nd'] }, //do not schedule until further notice
-    'David Michael': { talents: ['video', 'photography'], preferences: ['1st', '2nd'] },
-    // 'Jerome': { talents: ['photography', 'video'], preferences: ['1st', '2nd'] }, //left the country
-    // 'Kusibili': { talents: ['photography', 'video'], preferences: ['1st'] }, //still in school
-    'Chibwe': { talents: ['photography'], preferences: ['1st'] },
-    // 'Jemimah': { talents: ['photography', 'visionmixing'], preferences: ['1st'] }, //is on maternity leave
-    // Add more team members here
-  };
-  
-  const startDate = new Date('2023-11-05'); // Start date for August 2023 (1st Sunday)
-  const endDate = new Date('2023-11-26'); // End date for August 2023 (4th Sunday)
-  
-  const schedule = generateRandomSchedule(teamData, startDate, endDate);
-  console.log(schedule);
+const teamData = [
+  // {name:'Jose', talents: ['visionmixing', 'photography'], preferences: ['1st', '2nd'] },
+  {name:'Chudu', talents: ['photography'], preferences: ['1st'] },
+  // {name:'Chisha', talents: ['photography'], preferences: ['1st'] },
+  {name:'Charity', talents: ['visionmixing'], preferences: ['1st', '2nd'] },
+  {name:'Felix', talents: ['photography','video'], preferences: ['1st','2nd'] },
+  // {name:'Nobu', talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
+  {name:'Thokozile', talents: ['photography', 'video', 'livestream'], preferences: ['1st','2nd'] },
+  {name:'Prudence', talents: ['photography, livestream'], preferences: ['1st'] },
+  // {name:'Clement', talents: ['visionmixing', 'video'], preferences: ['1st', '2nd'] },
+  // {name:'Mara', talents: ['livestream'], preferences: ['1st','2nd'] },
+  {name:'Kondwani', talents: ['livestream'], preferences: ['1st'] },
+  {name:'Eneya', talents: ['visionmixing', 'video'], preferences: ['1st'] },
+  {name:'Yande', talents: ['video','photography', 'visionmixing'], preferences: ['1st','2nd'] },
+  {name:'Chanda', talents: ['photography','video'], preferences: ['2nd'] },
+  {name:'Lombe', talents: ['visionmixing', 'video'], preferences: ['1st'] },
+  {name:'Emmanuel Luks', talents: ['visionmixing','photography'], preferences: ['1st', '2nd'] },
+  // {name:'Medelina', talents: ['photography', 'video'], preferences: ['1st', '2nd'] },
+  {name:'Sarah', talents: ['visionmixing', 'video','photography'], preferences: ['1st'] },
+  // {name:'Barnabas', talents: ['video'], preferences: ['2nd'] },
+  // {name:'Lukundo', talents: ['photography'], preferences: ['2nd'] },
+  // {name:'Bright', talents: ['photography', 'livestream'], preferences: ['1st', '2nd'] },
+  {name:'Tabo', talents: ['photography','livestream'], preferences: ['1st'] },
+  // {name:'Niza', talents: ['video', 'livestream'], preferences: ['1st', '2nd'] },
+  {name:'Mukutwa', talents: ['photography'], preferences: ['2nd'] },
+  // {name:'Mike', talents: ['photography'], preferences: ['2nd'] },
+  {name:'David Michael', talents: ['video', 'photography'], preferences: ['1st', '2nd'] },
+  // {name:'Chibwe', talents: ['photography'], preferences: ['1st'] },
+  {name:'Kusibili', talents: ['photography', 'video'], preferences: ['1st','2nd'] }
+  // 'Yombo': { talents: ['photography'], preferences: ['1st', '2nd'] },
+   // 'Ossie': { talents: ['video', 'livestream'], preferences: ['1st'] }, //is travelling
+];
+
+const startDate = '2024-03-01';
+const endDate = '2024-03-31';
+
+const schedule = createSchedule(teamData, new Date(startDate), new Date(endDate));
+// console.log(JSON.stringify(schedule, null, 2));
+
+Object.entries(schedule).forEach(([date, services]) => {
+  console.log(`Date: ${date}`);
+  Object.entries(services).forEach(([service, assignments]) => {
+    console.log(`  Service: ${service}`);
+    assignments.forEach((assignment, index) => {
+      console.log(`    ${index + 1}. Name: ${assignment.name}, Talent: ${assignment.talent}`);
+    });
+  });
+});
